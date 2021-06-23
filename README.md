@@ -10,6 +10,6 @@ npm i puppeteer
 ```
 
 ## usage
-- Fetch entire menu: ```sh treats```
-- Fetch days by name: ```sh treays monday```
-- Fetch relative days: ```sh treats tomorrow```
+- Fetch entire menu: `treats`
+- Fetch days by name: `treays monday`
+- Fetch relative days: `treats tomorrow`
