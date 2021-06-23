@@ -11,5 +11,5 @@ npm i puppeteer
 
 ## usage
 - Fetch entire menu: `treats`
-- Fetch days by name: `treays monday`
+- Fetch days by name: `treats monday`
 - Fetch relative days: `treats tomorrow`
