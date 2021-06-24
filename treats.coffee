@@ -1,27 +1,29 @@
-# Chromium backend due to matlaget api key difficulties
-puppeteer = require 'puppeteer'
+{ menu } = require './scraper.coffee'
 
-# Parsing
-select = (elem, selector) ->
-	elem.querySelector('.menu-item__' + selector).innerText
+# Weekday definitions and getter
+DAYS =
+	abs: [ 'monday', 'tuesday', 'wednesday', 'thursday', 'friday' ]
+	rel: [ 'yesterday', 'today', 'tomorrow'                       ]
 
-parse = (day) ->
-	head:      select(day, 'heading')
-	desc:      select(day, 'description')
-	allergens: select(day, 'list')
+getDay = (day) ->
+	if day in DAYS.abs
+		return DAYS.abs.indexOf day
+	if day in DAYS.rel
+		return DAYS.rel.indexOf(name) - 2 + new Date().getDay()
 
-# Scraping
-scrape = () ->
-	browser = await puppeteer.launch()
-	page = await browser.newPage()
-	await page.goto('https://www.treats.no/')
+# Argument parsing
+parse = (args) ->
+	if args.length == 0 or args[0] == 'week'
+		return [0..4]
 	
-	await page.waitForSelector('.menu-list')
-	week = await page.evaluate () ->
-		(parse day for day in document.querySelectorAll('.menu-day'))
+	if args[1] == '-'
+		return [ (getDay args[0]) .. (getDay args[2]) ]
+	
+	if args[0] in DAYS.abs
+		return (getDay arg for arg in args)
+	
+	if args[0] in DAYS.rel
+		return (get_day arg for arg in args)
 
-	#menu = (parseDay day for day in days[...5])
-	console.log week
-	await browser.close()
-
-scrape()
+# Outputting menu results (future blessed entry)
+console.log menu parse process.argv[2..]
